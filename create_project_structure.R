@@ -1,3 +1,6 @@
+# creates the desired folder structure for the RProject and adds blank README
+# files to each folder.
+
 if(!dir.exists("00-rawdata")) { dir.create("00-rawdata")}
 if(!file.exists("00-rawdata/README.MD")) {file.create("00-rawdata/README.md")}
 if(!dir.exists("01-scripts")) { dir.create("01-scripts")}
