@@ -1,0 +1,169 @@
+---
+title: How does tree harvest influence benthic invertebrate density?
+geometry: margin=1in
+header-includes:
+    - \usepackage{setspace}
+    - \doublespacing
+    - \usepackage{lineno}
+    - \linenumbers
+    - \usepackage{float}
+    - \usepackage{fontspec}         # can only be used with xelatex output
+    - \setmainfont{Times New Roman} # can only be used with xelatex output
+
+output:
+  pdf_document: 
+    latex_engine: xelatex
+    keep_tex: false
+  html_document:
+    keep_md: false
+  word_document: default
+
+csl: https://www.zotero.org/styles/elsevier-harvard
+
+bibliography: mybibfile.bib
+
+knit: (
+  function(inputFile, encoding) { 
+  
+    pSubTitle <- 'example_ms'
+  
+    rmarkdown::render(
+      input       = inputFile, 
+      encoding    = encoding, 
+      params      = list(sub_title = pSubTitle),      
+      output_file = pSubTitle,
+      output_dir = "rendered", output_format = "all") })
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.pos = 'H')
+knitr::opts_knit$set(eval.after = 'fig.cap')
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library("tidyverse")
+library("ggplot2")
+library("cowplot")
+```
+<!-- **Title:** How does tree harvest influence benthic invertebrate density? -->
+
+Sam Straus^1^\*, Bob Security^1^, Cat Memes^2,1^, Derek Zoolander^3^
+
+1.  Dept. of Biology, Institution A, City, Province, Country
+
+2.  Environmental Science Centre, Governmental Organisation, City, Province, Country
+
+3.  Some Institute of Technology
+
+\*Corresponding Author
+
+email: first.author\@institution.ca (FA)
+
+**Author Contributions:** SS conceived of the study, conducted the analyses, and wrote the original, and revised drafts of the manuscript. SS, and BS, helped with the draft manuscript and revisions and supplied guidance to SS. DZ provided the data for the case study, contributed to the revisions, and assisted with the analysis of the case study data.
+
+**Data Availability:** The data and code that support the findings of this study are openly available on Zenodo / GitHub at <https://link_to_archived_release_or_GitHub.com>.
+
+If I was publishing this as an HTML document and wanted the link to be pretty versus human readable, I would use [this format](https://link_to_archived_release_or_GitHub.com) instead
+
+**Conflict of Interest statement**
+
+No conflicts of interest
+
+**Acknowledgements:** We would like to thank a whole bunch of people.
+
+\newpage
+
+# Abstract
+
+We looked at the density of *Baetis* spp. in harvested and non-harvested stream catchments.
+
+# Introduction
+
+*Baetis* spp, belonging to the insect order Ephemeroptera, are commonly used as stream quality indicators [@wallace1986response].
+
+# Methods
+
+Researchers collected data on the number of *Baetis* spp. per square meter in the benthic environment of various catchments from 1995 to 2005. Some of the catchments were harvested, while others were not.
+
+# Results
+
+```{r, include=FALSE}
+dir.create("../data/")
+# create README.md file for directory
+## File > New File > Markdown File
+
+# download turkey lakes watershed invertebrate density data
+invert.density.url <- "https://ftp.maps.canada.ca/pub//nrcan_rncan/Forests_Foret/TLW/TLW_invertebrateDensity.csv"
+invert.density.destfile <- "../00-rawdata/NRCAN_1995-2009_TLW_density.csv"
+
+## certificate issue
+# curl stands for client URL
+# -k means don't verify cert
+## USE WITH CAUTION!!
+download.file(invert.density.url, invert.density.destfile, method = "curl", extra = "-k")
+
+# download associated metadata
+invert.metadata.url <- "https://ftp.maps.canada.ca/pub//nrcan_rncan/Forests_Foret/TLW/TLW_invertebrate_metaEN.csv"
+invert.metadata.destfile <- "../00-rawdata/NRCAN_1995-2009_TLW_metadata.csv"
+download.file(invert.metadata.url, invert.metadata.destfile, method = "curl", extra = "-k")
+
+dat <- read.csv("../00-rawdata/NRCAN_1995-2009_TLW_density.csv")
+
+table(dat$catchment)
+
+## catchments 31, 33, and 34 were the ones that experienced forest harvest, create new column
+dat <- dat %>% mutate(harvest = if_else(catchment == "33" | catchment == "34L" | catchment == "34M" | 
+                                   catchment == "34U", true = "yes", false = "no"))
+
+table(dat$harvest)
+
+# for the purposes of this mock assignment, let's just stick on with one genus: Baetis (a genus of mayfly, the order of which are stream quality indicators 
+head(dat)
+baetis <- dat %>% select(catchment, year, month, replicate, Baetis, harvest)
+
+baetis.sum <- baetis %>% group_by(catchment, year, month, harvest) %>% summarize(mean.dens = mean(Baetis))
+
+
+## need date format to plot as a time series
+table(baetis.sum$month)
+baetis.sum <- baetis.sum %>% mutate(month2 = if_else(month == "june", "06", if_else(month == "may", "05", 
+                      if_else(month == "november", "11", if_else(month =="october", "10",
+                      if_else(month == "september", "09", "0"))))))
+
+# unite month and year
+baetis.sum <- baetis.sum %>% unite(col = "year.month", year, month2, sep = "-")
+
+## adding a day to get into yyyy-mm-dd format that R likes, the data file does not specify the day, so we're just going to use the first of the month
+
+baetis.sum <- baetis.sum %>% mutate(ymd = as.Date(paste(year.month,"-01",sep="")))
+
+## double check that are actually in a date format
+str(baetis.sum$ymd) # nice!
+
+# check out distribution
+hist(baetis.sum$mean.dens)
+hist(log10(baetis.sum$mean.dens))
+
+p <- ggplot(baetis.sum, aes(x=ymd, y=mean.dens, color = harvest)) +
+  geom_line() + 
+  xlab("Year")+
+  ylab("Mean density (# per sq. m)")+
+  scale_y_log10()+
+  theme_cowplot()
+
+p
+
+```
+
+```{r fig1, fig.width = 5, fig.height = 3, fig.align='center', out.width="75%", fig.cap = "\\label{fig:fig1}Baetis density in harvested and non-harvested catchments", echo = FALSE}
+p
+```
+
+Figure \ref{fig:fig1} is generated using an R chunk.
+
+# Discussion
+
+Benthic invertebrates are commonly used as indicators of stream water quality [@guilpart2012use]. *Baetis* sp. (Ephemeroptera) are used as stream quality indicators for catchments [@wallace1986response].
+
+# References {.unnumbered}
