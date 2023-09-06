@@ -160,6 +160,7 @@ p
 p
 ```
 
+<!-- This only works in PDF files (the \ref{} chunk) -->
 Figure \ref{fig:fig1} is generated using an R chunk.
 
 # Discussion
