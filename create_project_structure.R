@@ -18,6 +18,7 @@ if(!file.exists("01-scripts/_README.md")) { file.create("01-scripts/_README.md")
 if(!file.exists("01-scripts/r_scripts/_README.md")) { file.create("01-scripts/r_scripts/_README.md")}
 if(!file.exists("01-scripts/RMD/_README.md")) { file.create("01-scripts/RMD/_README.md")}
 if(!file.exists("02-outdata/_README.md")) { file.create("02-outdata/_README.md")}
+if(!file.exists("02-outdata/_DATA-DICTIONARY.md")) {file.create("02-outdata/_DATA-DICTIONARY.md")}
 if(!file.exists("03-figs/_README.md")) { file.create("03-figs/_README.md")}
 if(!file.exists("04-manuscript/_README.md")) { file.create("04-manuscript/_README.md")}
 if(!file.exists("04-manuscript/my-library.bib")) { file.create("04-manuscript/my-library.bib")}
