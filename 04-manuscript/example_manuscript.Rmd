@@ -6,7 +6,7 @@ header-includes:
     - \doublespacing
     - \usepackage{lineno}
     - \linenumbers
-    - \usepackage{float}
+    - \usepackage{float}            # this controls the placement of images in PDF files (allows fig.pos = 'H')
     - \usepackage{fontspec}         # can only be used with xelatex output
     - \setmainfont{Times New Roman} # can only be used with xelatex output
 
@@ -20,7 +20,7 @@ output:
 
 csl: https://www.zotero.org/styles/elsevier-harvard
 
-bibliography: mybibfile.bib
+bibliography: my-library.bib
 
 knit: (
   function(inputFile, encoding) { 
