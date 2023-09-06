@@ -22,6 +22,10 @@ csl: https://www.zotero.org/styles/elsevier-harvard
 
 bibliography: my-library.bib
 
+# this is a custom function that is called when you hit the "knit" button.
+# it allows you to save your rendered document with a specific name (pSubTitle)
+# and location (output_dir). I have also set it up to render all formats at once
+# as specified in the "output" part of the YAML header (above this) 
 knit: (
   function(inputFile, encoding) { 
   
