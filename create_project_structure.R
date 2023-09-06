@@ -10,16 +10,18 @@ if(!dir.exists("03-figs")) { dir.create("03-figs")}
 if(!dir.exists("04-manuscript")) { dir.create("04-manuscript")}
 if(!dir.exists("04-manuscript/rendered")) { dir.create("04-manuscript/rendered")}
 
-if(!file.exists("00-rawdata/_README.MD")) {file.create("00-rawdata/_README.MD")}
+
+if(!file.exists("README.md")) {file.create("README.md")}
+if(!file.exists("00-rawdata/_README.md")) {file.create("00-rawdata/_README.md")}
 if(!file.exists("00-rawdata/DATA-DICTIONARY.md")) {file.create("00-rawdata/DATA-DICTIONARY.md")}
-if(!file.exists("01-scripts/_README.MD")) { file.create("01-scripts/_README.MD")}
-if(!file.exists("01-scripts/r_scripts/_README.MD")) { file.create("01-scripts/r_scripts/_README.MD")}
-if(!file.exists("01-scripts/RMD/_README.MD")) { file.create("01-scripts/RMD/_README.MD")}
-if(!file.exists("02-outdata/_README.MD")) { file.create("02-outdata/_README.MD")}
-if(!file.exists("03-figs/_README.MD")) { file.create("03-figs/_README.MD")}
-if(!file.exists("04-manuscript/_README.MD")) { file.create("04-manuscript/_README.MD")}
+if(!file.exists("01-scripts/_README.md")) { file.create("01-scripts/_README.md")}
+if(!file.exists("01-scripts/r_scripts/_README.md")) { file.create("01-scripts/r_scripts/_README.md")}
+if(!file.exists("01-scripts/RMD/_README.md")) { file.create("01-scripts/RMD/_README.md")}
+if(!file.exists("02-outdata/_README.md")) { file.create("02-outdata/_README.md")}
+if(!file.exists("03-figs/_README.md")) { file.create("03-figs/_README.md")}
+if(!file.exists("04-manuscript/_README.md")) { file.create("04-manuscript/_README.md")}
 if(!file.exists("04-manuscript/my-library.bib")) { file.create("04-manuscript/my-library.bib")}
 if(!file.exists("04-manuscript/manuscript.RMD")) { file.create("04-manuscript/manuscript.RMD")}
-if(!file.exists("04-manuscript/rendered/_README.MD")) { file.create("04-manuscript/rendered/_README.MD")}
+if(!file.exists("04-manuscript/rendered/_README.md")) { file.create("04-manuscript/rendered/_README.md")}
 
 # file.remove("create_project_structure.R")

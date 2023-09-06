@@ -1,0 +1,96 @@
+---
+title           : "Pre-registration"
+shorttitle      : "Pre-reg"
+date            : "`r Sys.setlocale('LC_TIME', 'C'); format(Sys.time(), '%d\\\\. %B %Y')`"
+
+csl: https://www.zotero.org/styles/ecology-letters
+bibliography: my-library.bib
+
+# output: prereg::prereg_pdf
+output:
+  pdf_document: 
+    latex_engine: xelatex
+    keep_tex: false
+    
+knit: (
+  function(inputFile, encoding) { 
+  
+    pSubTitle <- 'example_pre-registration'
+  
+    rmarkdown::render(
+      input       = inputFile, 
+      encoding    = encoding, 
+      params      = list(sub_title = pSubTitle),      
+      output_file = pSubTitle,
+      output_dir = "rendered", output_format = "pdf_document") })
+---
+
+# Pre-registration
+
+## **Study information**
+
+#### Title:
+
+"Phylogenetic structure and assembly mechanisms in plant communities in the Cienegas and Mangrove State Reserve on the North coast of Yucatan"
+
+#### Authors:
+
+Sam Straus^1^\*, Bob Security^1^, Cat Memes^2,1^, Derek Zoolander^3^
+
+1.  Dept. of Biology, Institution A, City, Province, Country
+
+2.  Environmental Science Centre, Governmental Organisation, City, Province, Country
+
+3.  Some Institute of Technology
+
+#### Description
+
+Plant communities found in stressful environments, such as coastal ecosystems, where biotic and abiotic filters can be strong determinants of community structure [@valiente-banuet2007][@forey2009] are ideal systems to evaluate the relative importance of deterministic versus random mechanisms in shaping community assembly. Therefore, this study aims to evaluate the phylogenetic diversity and structure in plant communities in order to understand the role of deterministic and stochastic assembly processes in four contrasting communities of the tropical coastal wetland in the Cienegas and Mangrove State Reserve on the North coast of Yucatan.
+
+#### **Hypothesis**
+
+Communities with more environment and soil stress (floodable ecosystems) will show clustering patterns in plant communities due to evolutionary convergence (particular morphological and physiological attributes) or attributes shared by closely related species.
+
+## **Design plan**
+
+#### **Study type**
+
+Other
+
+## **Sampling Plan**
+
+Using five 100 x 5 m linear transects per community, every plant species (trees, shrubs, and herbs) present at each studied vegetation type will be sampled. The identity of the plant species' will be determined using dichotomous keys [@flores2001][@chávez2003]. Vouchers specimens will be deposited at the MEXU (Universidad Autónoma de México); CICY (Centro de Investigación Científica de Yucatán) and UADY (Universidad Autónoma de Yucatán) herbaria. For this study, only presence-absence data will be considered because coastal communities are characterized by low species abundance and cyclic succession [@acosta2009] which could bias results based on abundance.
+
+## **Variables**
+
+#### **Meassured variables**
+
+-   Pressence/absence of plants in each community.
+
+-   Genetic information for conserved plastids regions (matK, rcbL and trnL) of each sampled plant.
+
+-   Phylogenetic diversity.
+
+-   Net Relatedness Index (NRI).
+
+-   Nearest Taxon Index (NTI).
+
+## **Analysis Plan**
+
+Phylogenetic relationships will be reconstructed among all the species recorded across the four plant communities by creating a DNA matrix using three plastid genetic markers (matK, trnL and rbcL). The sequences will be obtained from the GenBank database. The gene regions will be concatenated and analyzed as a single matrix for it to be proofed, edited, and assembled using PhyDE v.0.99 [@müller2010].
+
+#### **Statistical models**
+
+To assess the phylogenetic relationships for plant communities, time-calibrated tree-based cladograms will be estimated using a Bayesian approach implemented in BEAST v.1.8.0 [@chávez20] through the CIPRES Science Gateway.
+
+Analyses for the estimation of the NRI and NTI will use a presence-absence matrix along with the 'picante' package [@guilpart2012use] for R v. 2.14.0 [@rcoreteam2015].
+
+#### **Data exclusion**
+
+Any specie for which the precise sequence data is unobtainable will be exchanged with a sister specie.
+
+------------------------------------------------------------------------
+
+## **Other**
+
+#### **References** {.unnumbered}
