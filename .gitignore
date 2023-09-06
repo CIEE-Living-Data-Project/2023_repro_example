@@ -3,3 +3,4 @@
 .RData
 .Ruserdata
 04-manuscript/rendered/*
+*.log
